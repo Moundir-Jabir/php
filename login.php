@@ -1,8 +1,6 @@
 <?php
     session_start();
     $status = "";
-    $email = $_POST['email'] ?? "";
-    $password = $_POST['password'] ?? "";
 ?>
 
 <?php
@@ -10,6 +8,8 @@
     require('library.php');
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $email = htmlspecialchars($_POST['email']) ?? "";
+        $password = htmlspecialchars($_POST['password']) ?? "";
         if(authenticate($email,$password)){
             $_SESSION['email'] = $email;
             header("Location: admin.php"); // redirection
@@ -44,11 +44,11 @@
                 <form action="" method="POST">
                     <div class="form-group">
                         <label for="email">email</label>
-                        <input name="email" id="email" type="email" class="form-control">
+                        <input required name="email" id="email" type="email" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="password">password</label>
-                        <input name="password" id="password" type="password" class="form-control">
+                        <input required name="password" id="password" type="password" class="form-control">
                     </div>
                     <input type="submit" value="Login" class="btn btn-danger btn-block">
                 </form>
